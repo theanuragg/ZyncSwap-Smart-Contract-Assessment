@@ -1,0 +1,28 @@
+{
+  "orders": [
+    {
+      "id": "0b7b34f9-79e0-47a7-bb64-8f3e2ab09064",
+      "market_id": "btc-usdt",
+      "side": "buy",
+      "order_type": "market",
+      "price": null,
+      "size_original": 0.25,
+      "size_remaining": 0,
+      "status": "filled",
+      "created_at": 1782584657
+    }
+  ],
+  "trades": [
+    {
+      "id": 1,
+      "market_id": "btc-usdt",
+      "price": 60505.5565,
+      "size": 0.25,
+      "maker_order_id": "virtual-book:ask:0",
+      "taker_order_id": "0b7b34f9-79e0-47a7-bb64-8f3e2ab09064",
+      "taker_side": "buy",
+      "ts": 1782584657
+    }
+  ],
+  "next_trade_id": 2
+}
