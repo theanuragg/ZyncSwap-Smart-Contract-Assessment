@@ -1,13 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { WagmiProvider } from "wagmi";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
 import { defineChain } from "viem";
 import type { ApiConfig } from "../src/types";
 import { ConfigProvider } from "../src/context/ConfigContext";
+import { wagmiConfig } from "../src/wallet/wagmiConfig";
+import { WalletProvider } from "../src/wallet/WalletContext";
 import { MarketsStreamProvider } from "../src/context/MarketsStreamContext";
 import { PaperTradeProvider } from "../src/context/PaperTradeContext";
 import { FavoritesProvider } from "../src/context/FavoritesContext";
-import { WalletProvider } from "../src/wallet/WalletContext";
+
+import "@rainbow-me/rainbowkit/styles.css";
+
+const queryClient = new QueryClient();
 
 function apiBase(): string {
   if (typeof window === "undefined") return "";
@@ -27,7 +35,7 @@ function Loading() {
     <div className="flex min-h-screen items-center justify-center text-white/70">
       <div className="flex flex-col items-center gap-3">
         <div className="spinner" />
-        <p className="m-0 text-sm tracking-wide">Loading AureLexa…</p>
+        <p className="m-0 text-sm tracking-wide">Loading AureLexa&hellip;</p>
       </div>
     </div>
   );
@@ -68,16 +76,22 @@ export function Providers({ children }: { children: React.ReactNode }) {
   });
 
   return (
-    <ConfigProvider value={cfg}>
-      <WalletProvider chain={chain} rpcUrl={cfg.rpc_url} walletConnectProjectId={cfg.wallet_connect_project_id}>
-        <FavoritesProvider>
-          <MarketsStreamProvider>
-            <PaperTradeProvider>
-              {children}
-            </PaperTradeProvider>
-          </MarketsStreamProvider>
-        </FavoritesProvider>
-      </WalletProvider>
-    </ConfigProvider>
+    <WagmiProvider config={wagmiConfig}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider theme={darkTheme()} coolMode>
+          <ConfigProvider value={cfg}>
+            <WalletProvider>
+              <FavoritesProvider>
+                <MarketsStreamProvider>
+                  <PaperTradeProvider>
+                    {children}
+                  </PaperTradeProvider>
+                </MarketsStreamProvider>
+              </FavoritesProvider>
+            </WalletProvider>
+          </ConfigProvider>
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }

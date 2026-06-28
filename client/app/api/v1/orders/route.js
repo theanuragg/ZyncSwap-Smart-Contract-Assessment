@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getMarketEngine, getMatchingEngine } from "../../../../lib/engines.js";
 import { quoteDp, formatPrice } from "../../../../lib/merge.js";
 import { MatchError } from "../../../../lib/matchingEngine.js";
+import { requireApiKey } from "../../../../lib/auth.js";
 
 export const dynamic = "force-dynamic";
 

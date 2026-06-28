@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getMatchingEngine } from "../../../../../lib/engines.js";
 import { MatchError } from "../../../../../lib/matchingEngine.js";
+import { requireApiKey } from "../../../../../lib/auth.js";
 
 export const dynamic = "force-dynamic";
 

@@ -6,9 +6,9 @@
  * or matchingEngine.js, so no Binance connection fires during compilation.
  */
 import { createServer } from "node:http";
-import { parse } from "node:url";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { parse } from "node:url";
 import { WebSocketServer } from "ws";
 import next from "next";
 
@@ -58,7 +58,8 @@ wss.on("connection", (ws) => {
 });
 
 httpServer.on("upgrade", (req, socket, head) => {
-  if (parse(req.url).pathname === "/ws/markets") {
+  const pathname = req.url?.split("?")[0] ?? "";
+  if (pathname === "/ws/markets") {
     wss.handleUpgrade(req, socket, head, (ws) => wss.emit("connection", ws, req));
   } else {
     socket.destroy();

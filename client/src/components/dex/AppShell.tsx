@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { WalletBar } from "../WalletBar";
 import { useConfig } from "../../context/ConfigContext";
 import { MarketTicker } from "./MarketTicker";
-import { WalletConnectModal } from "../WalletConnectModal";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const cfg = useConfig();
@@ -30,7 +29,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           "radial-gradient(ellipse 100% 70% at 50% 0%, rgba(0,217,192,0.07), transparent 52%), radial-gradient(ellipse 130% 95% at 50% 42%, #0b1217 0%, #050a0f 52%, #020508 100%)",
       }}
     >
-      {/* Top nav */}
       <header
         className="sticky top-0 z-50 flex items-center justify-between border-b border-white/[0.06] bg-[rgba(11,18,23,0.88)] px-8 backdrop-blur-[10px]"
         style={{ height: "3.25rem" }}
@@ -84,7 +82,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
       {children}
       <MarketTicker />
-      <WalletConnectModal />
     </div>
   );
 }

@@ -11,7 +11,6 @@ const TF_TO_TV: Record<ChartTimeframe, string> = {
   "1d": "D",
 };
 
-/** Convert pair like "BTC-USDT" / "BTC_USDT" / "BTCUSDT" → "BINANCE:BTCUSDT" */
 function toTVSymbol(pair: string): string {
   const clean = pair.toUpperCase().replace(/[-_/]/, "");
   return `BINANCE:${clean}`;
@@ -32,7 +31,6 @@ export function TradingChart({ pair, timeframe = "5m" }: Props) {
     const el = containerRef.current;
     if (!el) return;
 
-    // Remove any previous widget
     el.innerHTML = "";
 
     const script = document.createElement("script");
@@ -47,14 +45,20 @@ export function TradingChart({ pair, timeframe = "5m" }: Props) {
         interval: TF_TO_TV[timeframe],
         timezone: "Etc/UTC",
         theme: "dark",
-        style: "1",                  // candlestick
+        style: "1",
         locale: "en",
         toolbar_bg: "#131722",
         enable_publishing: false,
         hide_top_toolbar: false,
         hide_legend: false,
         save_image: true,
-        studies: ["Volume@tv-basicstudies"],
+        studies: [
+          "Volume@tv-basicstudies",
+          "RSI@tv-basicstudies",
+          "MACD@tv-basicstudies",
+          "Bollinger Bands@tv-basicstudies",
+          "Moving Average@tv-basicstudies",
+        ],
         show_popup_button: false,
         withdateranges: true,
         hide_side_toolbar: false,
@@ -96,7 +100,6 @@ export function TradingChart({ pair, timeframe = "5m" }: Props) {
     };
     }, [pair, timeframe]);
 
-  // Unique stable id per pair
   const containerId = `tv_chart_${pair.replace(/[^a-zA-Z0-9]/g, "_")}`;
 
   return (

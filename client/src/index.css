@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 @layer base {
-  :root { color-scheme: dark; }
+  :root {
+    color-scheme: dark;
+    --font-dm-sans: "DM Sans", system-ui, sans-serif;
+    --font-jetbrains-mono: "JetBrains Mono", monospace;
+  }
 
   body {
     margin: 0;
