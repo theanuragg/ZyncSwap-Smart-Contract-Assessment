@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "lsof -ti :3000 | xargs kill -9 2>/dev/null || true; next dev -p 3000",
+    "dev:full": "lsof -ti :3000 | xargs kill -9 2>/dev/null || true; NODE_OPTIONS=\"--max-old-space-size=8192\" node server.js",
     "build": "next build",
     "start": "lsof -ti :3000 | xargs kill -9 2>/dev/null || true; next start -p 3000",
     "lint": "next lint"

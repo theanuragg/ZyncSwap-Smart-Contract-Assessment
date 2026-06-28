@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { WagmiProvider } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { RainbowKitProvider, darkTheme } from "@rainbow-me/rainbowkit";
-import { defineChain } from "viem";
 import type { ApiConfig } from "../src/types";
 import { ConfigProvider } from "../src/context/ConfigContext";
 import { wagmiConfig } from "../src/wallet/wagmiConfig";
@@ -67,13 +66,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }
 
   if (!cfg) return <Loading />;
-
-  const chain = defineChain({
-    id: cfg.chain_id,
-    name: "Zync network",
-    nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
-    rpcUrls: { default: { http: [cfg.rpc_url] } },
-  });
 
   return (
     <WagmiProvider config={wagmiConfig}>
